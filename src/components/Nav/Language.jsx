@@ -53,8 +53,10 @@ const Languege = ({ setDirection, direction }) => {
     setCurrentLang(e.target.innerText.slice(0, 2));
     if (e.target.innerText === 'Arabic') {
       setDirection('rtl');
+      localStorage.setItem('dirLang', 'rtl');
     } else {
       setDirection('ltr');
+      localStorage.setItem('dirLang', 'ltr');
     }
     handleClose();
   };
@@ -68,7 +70,8 @@ const Languege = ({ setDirection, direction }) => {
         color='primary'
         onClick={handleClick}
       >
-        <TranslateIcon fontSize='small' /> {currentLang}
+        <TranslateIcon fontSize='small' />{' '}
+        {localStorage.getItem('dirLang') === 'ltr' ? 'en' : 'ar'}
       </Button>
       <StyledMenu
         id='customized-menu'
