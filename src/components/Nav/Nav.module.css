@@ -4,10 +4,6 @@
   height: 50px;
 }
 
-.root {
-  flex-grow: 1;
-}
-
 .list {
   display: flex;
   justify-content: flex-end;
