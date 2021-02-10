@@ -11,10 +11,6 @@ const App = () => {
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
   const [direction, setDirection] = useState('ltr');
 
-  const changeDirection = () => {
-    setDirection(direction);
-  };
-
   return (
     <StylesProvider jss={jss}>
       <div className='App' dir={direction}>
