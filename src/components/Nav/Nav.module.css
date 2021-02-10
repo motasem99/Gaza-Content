@@ -1,0 +1,25 @@
+.container {
+  background-color: blue;
+  width: 100%;
+  height: 50px;
+}
+
+.root {
+  flex-grow: 1;
+}
+
+.list {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  align-items: center;
+  width: 20%;
+}
+
+.list li {
+  list-style: none;
+  width: 100%;
+  padding: 10px;
+  height: 30px;
+  background-color: rgb(106, 106, 136);
+}
