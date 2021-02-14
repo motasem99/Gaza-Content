@@ -48,8 +48,6 @@ export default function SignIn() {
   const dirTheme = localStorage.getItem('dirLang');
   const ThemeDirection = createMuiTheme({ direction: dirTheme });
 
-  console.log(dirTheme);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.email.value === '') {

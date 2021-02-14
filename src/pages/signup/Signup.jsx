@@ -9,8 +9,14 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  ThemeProvider,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import SignupLangObject from '../../Languages/Signup';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const [error, setError] = useState('');
+  const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
+  const dirTheme = localStorage.getItem('dirLang');
+  const ThemeDirection = createMuiTheme({ direction: dirTheme });
 
   const signupHandleClick = (e) => {
     e.preventDefault();
@@ -72,124 +81,132 @@ export default function SignUp() {
   };
 
   return (
-    <Container component='main' maxWidth='xs'>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component='h1' variant='h5'>
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={signupHandleClick}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                type='text'
-                autoComplete='fname'
-                name='firstName'
-                variant='outlined'
-                required
-                fullWidth
-                label='First Name'
-                autoFocus
-                id='firstName'
-                error={error === 'firstName' ? true : false}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant='outlined'
-                required
-                fullWidth
-                label='Last Name'
-                name='lastName'
-                autoComplete='lname'
-                id='lastName'
-                error={error === 'lastName' ? true : false}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                required
-                fullWidth
-                label='Email Address'
-                name='email'
-                autoComplete='email'
-                id='email'
-                error={error === 'email' ? true : false}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-                error={error === 'password' ? true : false}
-                autoComplete='current-password'
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                required
-                fullWidth
-                name='phone'
-                label='Phone'
-                type='text'
-                id='phone'
-                error={error === 'phone' ? true : false}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                required
-                fullWidth
-                name='address'
-                label='Address'
-                type='text'
-                id='address'
-                error={error === 'address' ? true : false}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value='allowExtraEmails' color='primary' />}
-                label='I want to receive inspiration, marketing promotions and updates via email.'
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
+    <ThemeProvider theme={ThemeDirection}>
+      <Container component='main' maxWidth='xs'>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component='h1' variant='h5'>
+            {SignupLangObject.signup[Language]}
+          </Typography>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={signupHandleClick}
           >
-            Sign Up
-          </Button>
-          <Grid container justify='flex-end'>
-            <Grid item>
-              <Button
-                variant='body2'
-                className={classes.menuButton}
-                component={Link}
-                to='/signin'
-                color='inherit'
-              >
-                Already have an account? Sign in
-              </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  type='text'
+                  autoComplete='fname'
+                  name='firstName'
+                  variant='outlined'
+                  required
+                  fullWidth
+                  label={SignupLangObject.firstName[Language]}
+                  autoFocus
+                  id='firstName'
+                  error={error === 'firstName' ? true : false}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant='outlined'
+                  required
+                  fullWidth
+                  label={SignupLangObject.lastName[Language]}
+                  name='lastName'
+                  autoComplete='lname'
+                  id='lastName'
+                  error={error === 'lastName' ? true : false}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant='outlined'
+                  required
+                  fullWidth
+                  label={SignupLangObject.emailAddress[Language]}
+                  name='email'
+                  autoComplete='email'
+                  id='email'
+                  error={error === 'email' ? true : false}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  variant='outlined'
+                  required
+                  fullWidth
+                  name='password'
+                  label={SignupLangObject.password[Language]}
+                  type='password'
+                  id='password'
+                  error={error === 'password' ? true : false}
+                  autoComplete='current-password'
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant='outlined'
+                  required
+                  fullWidth
+                  name='phone'
+                  label={SignupLangObject.phone[Language]}
+                  type='text'
+                  id='phone'
+                  error={error === 'phone' ? true : false}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant='outlined'
+                  required
+                  fullWidth
+                  name='address'
+                  label={SignupLangObject.address[Language]}
+                  type='text'
+                  id='address'
+                  error={error === 'address' ? true : false}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value='allowExtraEmails' color='primary' />
+                  }
+                  label={SignupLangObject.description[Language]}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+              className={classes.submit}
+            >
+              {SignupLangObject.signup[Language]}
+            </Button>
+            <Grid container justify='flex-end'>
+              <Grid item>
+                <Button
+                  variant='body2'
+                  className={classes.menuButton}
+                  component={Link}
+                  to='/signin'
+                  color='inherit'
+                >
+                  {SignupLangObject.haveAccount[Language]}
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Container>
+    </ThemeProvider>
   );
 }
