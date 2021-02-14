@@ -8,6 +8,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Nav from './components/Nav/Nav.jsx';
 import Signup from './pages/signup/Signup.jsx';
 import Signin from './pages/signin/Signin.jsx';
+import ResponsiveDrawer from './pages/Dashbord/Dashbord.jsx';
 
 const App = () => {
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -30,6 +31,7 @@ const App = () => {
           <Switch>
             <Route path='/Signup' exact component={Signup} />
             <Route path='/Signin' exact component={Signin} />
+            <Route path='/dashbord' exact component={ResponsiveDrawer} />
           </Switch>
         </BrowserRouter>
       </div>
