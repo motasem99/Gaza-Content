@@ -1,7 +1,7 @@
 const Lang = {
   login: {
     EN: 'Login',
-    AR: 'تسجيال الدخزل',
+    AR: 'تسجيل الدخول',
   },
   signup: {
     EN: 'Signup',

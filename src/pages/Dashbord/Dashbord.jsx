@@ -14,7 +14,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+  useTheme,
+} from '@material-ui/core/styles';
+
+import DashboardLangObject from '../../Languages/Dashbord.js';
 
 import DashbordNav from '../../components/DashbordNav/DashbordNav';
 
@@ -34,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
     },
   },
   menuButton: {
@@ -72,9 +78,21 @@ const Dashbord = (props) => {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
+  const dirTheme = localStorage.getItem('dirLang');
+  const ThemeDirection = createMuiTheme({ direction: dirTheme });
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const inbox = DashboardLangObject.inbox[Language];
+  const starred = DashboardLangObject.starred[Language];
+  const sendEmail = DashboardLangObject.sendEmail[Language];
+  const drafts = DashboardLangObject.drafts[Language];
+  const allMail = DashboardLangObject.allMail[Language];
+  const trash = DashboardLangObject.trash[Language];
+  const spam = DashboardLangObject.spam[Language];
 
   const drawer = (
     <div>
@@ -82,7 +100,7 @@ const Dashbord = (props) => {
       <div className={classes.toolbarColor} />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {[inbox, starred, sendEmail, drafts].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon className={classes.svgColor}>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -93,7 +111,7 @@ const Dashbord = (props) => {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {[allMail, trash, spam].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon className={classes.svgColor}>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -109,57 +127,59 @@ const Dashbord = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position='fixed' className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color='inherit'
-            aria-label='open drawer'
-            edge='start'
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <DashbordNav className={classes.displayNav} />
-        </Toolbar>
-      </AppBar>
-      <nav className={classes.drawer} aria-label='mailbox folders'>
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation='css'>
-          <Drawer
-            container={container}
-            variant='temporary'
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation='css'>
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant='permanent'
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-      <main className={classes.content}>
-        <div className />
-      </main>
-    </div>
+    <ThemeProvider theme={ThemeDirection}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position='fixed' className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color='inherit'
+              aria-label='open drawer'
+              edge='start'
+              onClick={handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+            <DashbordNav className={classes.displayNav} />
+          </Toolbar>
+        </AppBar>
+        <nav className={classes.drawer} aria-label='mailbox folders'>
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Hidden smUp implementation='css'>
+            <Drawer
+              container={container}
+              variant='temporary'
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation='css'>
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              variant='permanent'
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+        <main className={classes.content}>
+          <div className />
+        </main>
+      </div>
+    </ThemeProvider>
   );
 };
 
