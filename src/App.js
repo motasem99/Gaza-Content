@@ -18,7 +18,6 @@ const App = () => {
     const getLang = () => {
       const directionLang = localStorage.getItem('dirLang');
       setDirection(directionLang);
-      console.log(directionLang);
     };
     getLang();
   }, []);

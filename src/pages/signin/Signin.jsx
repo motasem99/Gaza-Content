@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
+import LoginLangObject from '../../Languages/Login';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
   const [error, setError] = useState('');
+  const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,7 +61,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Login
+          {LoginLangObject.login[Language]}
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
@@ -68,7 +70,7 @@ export default function SignIn() {
             required
             fullWidth
             id='email'
-            label='Email Address'
+            label={LoginLangObject.email[Language]}
             name='email'
             autoComplete='email'
             autoFocus
@@ -80,7 +82,7 @@ export default function SignIn() {
             required
             fullWidth
             name='password'
-            label='Password'
+            label={LoginLangObject.password[Language]}
             type='password'
             id='password'
             autoComplete='current-password'
@@ -88,7 +90,7 @@ export default function SignIn() {
           />
           <FormControlLabel
             control={<Checkbox value='remember' color='primary' />}
-            label='Remember me'
+            label={LoginLangObject.remember[Language]}
           />
           <Button
             type='submit'
@@ -97,7 +99,7 @@ export default function SignIn() {
             color='primary'
             className={classes.submit}
           >
-            Sign In
+            {LoginLangObject.signin[Language]}
           </Button>
           <Grid container>
             <Grid item>
@@ -108,7 +110,7 @@ export default function SignIn() {
                 to='/signup'
                 color='inherit'
               >
-                Don't have an account? Sign up
+                {LoginLangObject.noAccount[Language]}
               </Button>
             </Grid>
           </Grid>
