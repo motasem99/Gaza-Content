@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,6 +38,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const [error, setError] = useState('');
+
+  const signupHandleClick = (e) => {
+    e.preventDefault();
+    if (
+      e.target.firstName.id === 'firstName' &&
+      e.target.firstName.value === ''
+    ) {
+      setError('firstName');
+    } else if (
+      e.target.lastName.id === 'lastName' &&
+      e.target.lastName.value === ''
+    ) {
+      setError('lastName');
+    } else if (e.target.email.id === 'email' && e.target.email.value === '') {
+      setError('email');
+    } else if (
+      e.target.password.id === 'password' &&
+      e.target.password.value === ''
+    ) {
+      setError('password');
+    } else if (e.target.phone.id === 'phone' && e.target.phone.value === '') {
+      setError('phone');
+    } else if (
+      e.target.address.id === 'address' &&
+      e.target.address.value === ''
+    ) {
+      setError('address');
+    } else {
+      setError(null);
+    }
+  };
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -49,18 +81,20 @@ export default function SignUp() {
         <Typography component='h1' variant='h5'>
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={signupHandleClick}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+                type='text'
                 autoComplete='fname'
                 name='firstName'
                 variant='outlined'
                 required
                 fullWidth
-                id='firstName'
                 label='First Name'
                 autoFocus
+                id='firstName'
+                error={error === 'firstName' ? true : false}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -68,10 +102,11 @@ export default function SignUp() {
                 variant='outlined'
                 required
                 fullWidth
-                id='lastName'
                 label='Last Name'
                 name='lastName'
                 autoComplete='lname'
+                id='lastName'
+                error={error === 'lastName' ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -79,10 +114,11 @@ export default function SignUp() {
                 variant='outlined'
                 required
                 fullWidth
-                id='email'
                 label='Email Address'
                 name='email'
                 autoComplete='email'
+                id='email'
+                error={error === 'email' ? true : false}
               />
             </Grid>
 
@@ -95,6 +131,7 @@ export default function SignUp() {
                 label='Password'
                 type='password'
                 id='password'
+                error={error === 'password' ? true : false}
                 autoComplete='current-password'
               />
             </Grid>
@@ -103,11 +140,11 @@ export default function SignUp() {
                 variant='outlined'
                 required
                 fullWidth
-                name='password'
+                name='phone'
                 label='Phone'
-                type='password'
-                id='password'
-                autoComplete='current-password'
+                type='text'
+                id='phone'
+                error={error === 'phone' ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -115,11 +152,11 @@ export default function SignUp() {
                 variant='outlined'
                 required
                 fullWidth
-                name='password'
+                name='address'
                 label='Address'
-                type='password'
-                id='password'
-                autoComplete='current-password'
+                type='text'
+                id='address'
+                error={error === 'address' ? true : false}
               />
             </Grid>
             <Grid item xs={12}>

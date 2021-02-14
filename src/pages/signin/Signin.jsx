@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,6 +38,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (e.target.email.value === '') {
+      setError('email');
+    } else if (e.target.password.value === '') {
+      setError('password');
+    } else {
+      setError(null);
+    }
+  };
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -47,9 +59,9 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Sign in
+          Login
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant='outlined'
             margin='normal'
@@ -60,6 +72,7 @@ export default function SignIn() {
             name='email'
             autoComplete='email'
             autoFocus
+            error={error === 'email' ? true : false}
           />
           <TextField
             variant='outlined'
@@ -71,6 +84,7 @@ export default function SignIn() {
             type='password'
             id='password'
             autoComplete='current-password'
+            error={error === 'password' ? true : false}
           />
           <FormControlLabel
             control={<Checkbox value='remember' color='primary' />}
