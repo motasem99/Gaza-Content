@@ -29,8 +29,8 @@ const App = () => {
         <BrowserRouter>
           <Nav setDirection={setDirection} direction={direction} />
           <Switch>
-            <Route path='/Signup' exact component={Signup} />
-            <Route path='/Signin' exact component={Signin} />
+            <Route path='/signup' exact component={Signup} />
+            <Route path='/signin' exact component={Signin} />
             <Route path='/dashbord' exact component={ResponsiveDrawer} />
           </Switch>
         </BrowserRouter>

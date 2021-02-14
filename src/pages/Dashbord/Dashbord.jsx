@@ -23,6 +23,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    justifyContent: 'flex-end',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -60,9 +61,12 @@ const useStyles = makeStyles((theme) => ({
   svgColor: {
     color: 'white',
   },
+  displayNav: {
+    justifyContent: 'flex-end',
+  },
 }));
 
-function ResponsiveDrawer(props) {
+const Dashbord = (props) => {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -118,8 +122,8 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
+          <DashbordNav className={classes.displayNav} />
         </Toolbar>
-        <DashbordNav />
       </AppBar>
       <nav className={classes.drawer} aria-label='mailbox folders'>
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -157,9 +161,9 @@ function ResponsiveDrawer(props) {
       </main>
     </div>
   );
-}
+};
 
-ResponsiveDrawer.propTypes = {
+Dashbord.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -167,4 +171,4 @@ ResponsiveDrawer.propTypes = {
   window: PropTypes.func,
 };
 
-export default ResponsiveDrawer;
+export default Dashbord;
