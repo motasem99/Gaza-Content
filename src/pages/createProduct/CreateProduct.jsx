@@ -5,36 +5,10 @@ import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
-import { Form, Field } from 'react-final-form';
-import {
-  TextField,
-  Checkbox,
-  Radio,
-  InputLabel,
-  Select,
-  MenuItem,
-} from '@material-ui/core';
-import {
-  Paper,
-  Link,
-  Grid,
-  CssBaseline,
-  RadioGroup,
-  FormLabel,
-  FormGroup,
-  FormControl,
-  FormControlLabel,
-} from '@material-ui/core';
-// Picker
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  TimePicker,
-  DatePicker,
-} from '@material-ui/pickers';
+import PreviewFile from './previewFile/PreviewFile';
+import UploadFile from './uploadFile/UploadFile';
+import Preview from './preview/Preview';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,125 +29,20 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
-  mainForm: {
-    padding: 16,
-    margin: 'auto',
-    maxWidth: 500,
-    border: 'none',
-  },
-  paper: {
-    padding: 16,
-    boxShadow: 'none',
-  },
-  gridButton: {
-    marginTop: 16,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  submitButton: {
-    width: '70%',
-  },
-  formControl: {
-    width: '100%',
-  },
 }));
 
 function getSteps() {
   return ['Preview File', 'Upload File', 'Preview'];
 }
 
-const onSubmit = (e) => {
-  e.preventDefault();
-  console.log('hiii');
-};
-
-const FirstForm = () => {
-  const classes = useStyles();
-  return (
-    <div className={classes.mainForm}>
-      <CssBaseline />
-      <Form
-        onSubmit={onSubmit}
-        initialValues={{ employed: true, stooge: 'larry' }}
-        render={() => (
-          <form onSubmit={onSubmit} noValidate>
-            <Paper className={classes.paper}>
-              <Grid container alignItems='flex-start' spacing={2}>
-                <Grid item xs={12}>
-                  <Field
-                    fullWidth
-                    required
-                    name='name'
-                    component={TextField}
-                    type='text'
-                    label='Product Name'
-                  />
-                </Grid>
-                <Grid item xs={9}>
-                  <Field
-                    fullWidth
-                    name='price'
-                    required
-                    component={TextField}
-                    type='text'
-                    label='Product Price'
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel id='demo-simple-select-label'>
-                      currency
-                    </InputLabel>
-                    <Select
-                      labelId='demo-simple-select-label'
-                      id='demo-simple-select'
-                    >
-                      <MenuItem value={10}>
-                        <AttachMoneyIcon />
-                      </MenuItem>
-                      <MenuItem value={20}>
-                        <EuroSymbolIcon />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    fullWidth
-                    type='text'
-                    required
-                    name='description'
-                    component={TextField}
-                    multiline
-                    label='Description'
-                  />
-                </Grid>
-              </Grid>
-            </Paper>
-          </form>
-        )}
-      />
-    </div>
-  );
-};
-
-const SecondForm = () => {
-  return <h1>iam second</h1>;
-};
-
-const ThirdForm = () => {
-  return <h1>Third form here</h1>;
-};
-
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <FirstForm />;
+      return <PreviewFile />;
     case 1:
-      return <SecondForm />;
+      return <UploadFile />;
     case 2:
-      return <ThirdForm />;
+      return <Preview />;
     default:
       return 'Unknown step';
   }
@@ -188,25 +57,6 @@ export default function CreateProduct() {
 
   const totalSteps = () => {
     return getSteps().length;
-  };
-
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
   };
 
   const skippedSteps = () => {
@@ -244,21 +94,6 @@ export default function CreateProduct() {
     setActiveStep(step);
   };
 
-  const handleComplete = () => {
-    const newCompleted = new Set(completed);
-    newCompleted.add(activeStep);
-    setCompleted(newCompleted);
-
-    /**
-     * Sigh... it would be much nicer to replace the following if conditional with
-     * `if (!this.allStepsComplete())` however state is not set when we do this,
-     * thus we have to resort to not being very DRY.
-     */
-    if (completed.size !== totalSteps() - skippedSteps()) {
-      handleNext();
-    }
-  };
-
   const handleReset = () => {
     setActiveStep(0);
     setCompleted(new Set());
@@ -279,11 +114,6 @@ export default function CreateProduct() {
         {steps.map((label, index) => {
           const stepProps = {};
           const buttonProps = {};
-          //   if (isStepOptional(index)) {
-          //     buttonProps.optional = (
-          //       <Typography variant='caption'>Optional</Typography>
-          //     );
-          //   }
           if (isStepSkipped(index)) {
             stepProps.completed = false;
           }
