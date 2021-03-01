@@ -18,7 +18,8 @@ import Nav from './components/Nav/Nav.jsx';
 // Pages
 import Signup from './pages/signup/Signup.jsx';
 import Signin from './pages/signin/Signin.jsx';
-import Dashboard from './pages/Dashbord/Dashbord.jsx';
+import Dashboard from './pages/dashbord/Dashbord.jsx';
+import CreateProduct from './pages/createProduct/CreateProduct.jsx';
 
 const App = () => {
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -42,6 +43,7 @@ const App = () => {
               <Route path='/signup' exact component={Signup} />
               <Route path='/signin' exact component={Signin} />
               <Route path='/dashbord' exact component={Dashboard} />
+              <Route path='/create' exact component={CreateProduct} />
             </Switch>
           </Router>
         </div>
