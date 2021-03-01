@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   mainForm: {
     padding: 16,
     margin: 'auto',
-    maxWidth: 500,
+    maxWidth: 750,
     border: 'none',
   },
   paper: {
@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   img: {
-    width: '200px',
-    height: '180px',
+    width: '100%',
+    height: '350px',
   },
   divImg: {
     display: 'flex',
