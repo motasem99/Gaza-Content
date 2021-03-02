@@ -49,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: '100%',
     height: '350px',
+    borderRadius: '8px',
+    '&:hover': {
+      filter: 'blur(1.8px)',
+    },
   },
   divImg: {
     display: 'flex',

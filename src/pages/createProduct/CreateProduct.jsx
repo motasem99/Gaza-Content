@@ -37,16 +37,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
-
-function getSteps() {
-  return [
-    `${createLangObject.InfoFile[Language]}`,
-    `${createLangObject.UploadFile[Language]}`,
-    `${createLangObject.PreviewFile[Language]}`,
-  ];
-}
-
 function getStepContent(step) {
   switch (step) {
     case 0:
@@ -60,7 +50,17 @@ function getStepContent(step) {
   }
 }
 
-export default function CreateProduct() {
+const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
+
+function getSteps() {
+  return [
+    `${createLangObject.InfoFile[Language]}`,
+    `${createLangObject.UploadFile[Language]}`,
+    `${createLangObject.PreviewFile[Language]}`,
+  ];
+}
+
+const CreateProduct = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState(new Set());
@@ -68,6 +68,7 @@ export default function CreateProduct() {
 
   const dirTheme = localStorage.getItem('dirLang');
   const ThemeDirection = createMuiTheme({ direction: dirTheme });
+  const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
 
   const steps = getSteps();
 
@@ -147,6 +148,7 @@ export default function CreateProduct() {
             );
           })}
         </Stepper>
+
         <div>
           {allStepsCompleted() ? (
             <div>
@@ -183,4 +185,6 @@ export default function CreateProduct() {
       </div>
     </ThemeProvider>
   );
-}
+};
+
+export default CreateProduct;
