@@ -1,5 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  ThemeProvider,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
@@ -9,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import PreviewFile from './previewFile/PreviewFile';
 import UploadFile from './uploadFile/UploadFile';
 import Preview from './preview/Preview';
+
+import createLangObject from '../../Languages/Create';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,8 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
+
 function getSteps() {
-  return ['Preview File', 'Upload File', 'Preview'];
+  return [
+    `${createLangObject.InfoFile[Language]}`,
+    `${createLangObject.UploadFile[Language]}`,
+    `${createLangObject.PreviewFile[Language]}`,
+  ];
 }
 
 function getStepContent(step) {
@@ -53,6 +65,10 @@ export default function CreateProduct() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState(new Set());
   const [skipped, setSkipped] = React.useState(new Set());
+
+  const dirTheme = localStorage.getItem('dirLang');
+  const ThemeDirection = createMuiTheme({ direction: dirTheme });
+
   const steps = getSteps();
 
   const totalSteps = () => {
@@ -109,60 +125,62 @@ export default function CreateProduct() {
   }
 
   return (
-    <div className={classes.root}>
-      <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const buttonProps = {};
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps}>
-              <StepButton
-                onClick={handleStep(index)}
-                completed={isStepComplete(index)}
-                {...buttonProps}
-              >
-                {label}
-              </StepButton>
-            </Step>
-          );
-        })}
-      </Stepper>
-      <div>
-        {allStepsCompleted() ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
-          </div>
-        ) : (
-          <div>
-            <Typography className={classes.instructions}>
-              {getStepContent(activeStep)}
-            </Typography>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.button}
-              >
-                Back
-              </Button>
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={handleNext}
-                className={classes.button}
-              >
-                Next
-              </Button>
+    <ThemeProvider theme={ThemeDirection}>
+      <div className={classes.root}>
+        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
+          {steps.map((label, index) => {
+            const stepProps = {};
+            const buttonProps = {};
+            if (isStepSkipped(index)) {
+              stepProps.completed = false;
+            }
+            return (
+              <Step key={label} {...stepProps}>
+                <StepButton
+                  onClick={handleStep(index)}
+                  completed={isStepComplete(index)}
+                  {...buttonProps}
+                >
+                  {label}
+                </StepButton>
+              </Step>
+            );
+          })}
+        </Stepper>
+        <div>
+          {allStepsCompleted() ? (
+            <div>
+              <Typography className={classes.instructions}>
+                All steps completed - you&apos;re finished
+              </Typography>
+              <Button onClick={handleReset}>Reset</Button>
             </div>
-          </div>
-        )}
+          ) : (
+            <div>
+              <Typography className={classes.instructions}>
+                {getStepContent(activeStep)}
+              </Typography>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  className={classes.button}
+                >
+                  {createLangObject.BackButton[Language]}
+                </Button>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={handleNext}
+                  className={classes.button}
+                >
+                  {createLangObject.NextButton[Language]}
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }

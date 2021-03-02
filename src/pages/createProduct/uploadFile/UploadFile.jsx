@@ -1,11 +1,17 @@
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  ThemeProvider,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 
 import { Form } from 'react-final-form';
 import { FormLabel } from '@material-ui/core';
 import { Paper, Grid, CssBaseline } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+
+import createLangObject from '../../../Languages/Create';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,8 +73,11 @@ const fileToDataUri = (file) =>
 
 const UploadFile = () => {
   const classes = useStyles();
-  //   const [file, setFile] = useState(null);
   const [file, setFile] = useState('');
+
+  const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
+  const dirTheme = localStorage.getItem('dirLang');
+  const ThemeDirection = createMuiTheme({ direction: dirTheme });
 
   const onChange = (file) => {
     if (!file) {
@@ -82,67 +91,77 @@ const UploadFile = () => {
   };
 
   return (
-    <div className={classes.mainForm}>
-      <CssBaseline />
-      <Form
-        onSubmit={onSubmit}
-        initialValues={{ employed: true, stooge: 'larry' }}
-        render={() => (
-          <form onSubmit={onSubmit} noValidate>
-            <Paper className={classes.paper}>
-              <Grid container alignItems='flex-start' spacing={2}>
-                <Grid item xs={12} className={classes.root}>
-                  <FormLabel component='legend' className={classes.formControl}>
-                    Upload The Product Preview:{' '}
-                  </FormLabel>
-                  <input
-                    accept='image/*'
-                    className={classes.input}
-                    id='icon-button-file'
-                    type='file'
-                    onChange={(event) =>
-                      onChange(event.target.files[0] || null)
-                    }
-                  />
-                  <label htmlFor='icon-button-file'>
-                    <IconButton
-                      color='primary'
-                      aria-label='upload picture'
-                      component='span'
+    <ThemeProvider theme={ThemeDirection}>
+      <div className={classes.mainForm}>
+        <CssBaseline />
+        <Form
+          onSubmit={onSubmit}
+          initialValues={{ employed: true, stooge: 'larry' }}
+          render={() => (
+            <form onSubmit={onSubmit} noValidate>
+              <Paper className={classes.paper}>
+                <Grid container alignItems='flex-start' spacing={2}>
+                  <Grid item xs={12} className={classes.root}>
+                    <FormLabel
+                      component='legend'
+                      className={classes.formControl}
                     >
-                      <PhotoCamera />
-                    </IconButton>
-                  </label>
-                </Grid>
-                <div className={classes.divImg}>
-                  {file && <img src={file} alt={''} className={classes.img} />}
-                </div>
-                <Grid item xs={12} className={classes.root}>
-                  <FormLabel component='legend' className={classes.formControl}>
-                    Upload The Product :{' '}
-                  </FormLabel>
-                  <input
-                    accept='image/*'
-                    className={classes.input}
-                    id='icon-button-file'
-                    type='file'
-                  />
-                  <label htmlFor='icon-button-file'>
-                    <IconButton
-                      color='primary'
-                      aria-label='upload picture'
-                      component='span'
+                      {createLangObject.SmallPreview[Language]} :
+                    </FormLabel>
+                    <input
+                      accept='image/*'
+                      className={classes.input}
+                      id='icon-button-file'
+                      type='file'
+                      onChange={(event) =>
+                        onChange(event.target.files[0] || null)
+                      }
+                    />
+                    <label htmlFor='icon-button-file'>
+                      <IconButton
+                        color='primary'
+                        aria-label='upload picture'
+                        component='span'
+                      >
+                        <PhotoCamera />
+                      </IconButton>
+                    </label>
+                  </Grid>
+                  <div className={classes.divImg}>
+                    {file && (
+                      <img src={file} alt={''} className={classes.img} />
+                    )}
+                  </div>
+                  <Grid item xs={12} className={classes.root}>
+                    <FormLabel
+                      component='legend'
+                      className={classes.formControl}
                     >
-                      <PhotoCamera />
-                    </IconButton>
-                  </label>
+                      {createLangObject.UploadTheFile[Language]} :
+                    </FormLabel>
+                    <input
+                      accept='image/*'
+                      className={classes.input}
+                      id='icon-button-file'
+                      type='file'
+                    />
+                    <label htmlFor='icon-button-file'>
+                      <IconButton
+                        color='primary'
+                        aria-label='upload picture'
+                        component='span'
+                      >
+                        <PhotoCamera />
+                      </IconButton>
+                    </label>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Paper>
-          </form>
-        )}
-      />
-    </div>
+              </Paper>
+            </form>
+          )}
+        />
+      </div>
+    </ThemeProvider>
   );
 };
 
