@@ -15,6 +15,7 @@ import UploadFile from './uploadFile/UploadFile';
 import Preview from './preview/Preview';
 
 import createLangObject from '../../Languages/Create';
+import { StepLabel } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginRight: theme.spacing(1),
+    marginBottom: '25px',
   },
   backButton: {
     marginRight: theme.spacing(1),
@@ -129,24 +131,15 @@ const CreateProduct = () => {
     <ThemeProvider theme={ThemeDirection}>
       <div className={classes.root}>
         <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-          {steps.map((label, index) => {
-            const stepProps = {};
-            const buttonProps = {};
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
-            return (
-              <Step key={label} {...stepProps}>
-                <StepButton
-                  onClick={handleStep(index)}
-                  completed={isStepComplete(index)}
-                  {...buttonProps}
-                >
-                  {label}
-                </StepButton>
-              </Step>
-            );
-          })}
+          <Step>
+            <StepLabel>{createLangObject.InfoFile[Language]}</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>{createLangObject.UploadFile[Language]}</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>{createLangObject.PreviewFile[Language]}</StepLabel>
+          </Step>
         </Stepper>
 
         <div>

@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: 'none',
   },
+  input2: {
+    display: 'none',
+  },
   mainForm: {
     padding: 16,
     margin: 'auto',
@@ -66,31 +69,39 @@ const onSubmit = (e) => {
   console.log('hiii');
 };
 
-const fileToDataUri = (file) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      resolve(event.target.result);
-    };
-    reader.readAsDataURL(file);
-  });
-
 const UploadFile = () => {
   const classes = useStyles();
   const [file, setFile] = useState('');
+  const [secondFile, setSecondFile] = useState('');
+
+  console.log(file);
+  console.log(secondFile);
 
   const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
   const dirTheme = localStorage.getItem('dirLang');
   const ThemeDirection = createMuiTheme({ direction: dirTheme });
 
-  const onChange = (file) => {
+  const fileToDataUri = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+
+  const onChange = (file, id) => {
+    console.log(file);
     if (!file) {
       setFile('');
       return;
     }
-
     fileToDataUri(file).then((file) => {
-      setFile(file);
+      if (id === 'icon-button-file2') {
+        setFile(file);
+      } else if (id === 'icon-button-file') {
+        setSecondFile(file);
+      }
     });
   };
 
@@ -115,13 +126,17 @@ const UploadFile = () => {
                     <input
                       accept='image/*'
                       className={classes.input}
-                      id='icon-button-file'
+                      id='icon-button-file2'
+                      name='firstItem'
                       type='file'
-                      onChange={(event) =>
-                        onChange(event.target.files[0] || null)
-                      }
+                      onChange={(event) => {
+                        onChange(
+                          event.target.files[0] || null,
+                          event.target.id
+                        );
+                      }}
                     />
-                    <label htmlFor='icon-button-file'>
+                    <label htmlFor='icon-button-file2'>
                       <IconButton
                         color='primary'
                         aria-label='upload picture'
@@ -147,7 +162,14 @@ const UploadFile = () => {
                       accept='image/*'
                       className={classes.input}
                       id='icon-button-file'
+                      name='secondItem'
                       type='file'
+                      onChange={(event) => {
+                        onChange(
+                          event.target.files[0] || null,
+                          event.target.id
+                        );
+                      }}
                     />
                     <label htmlFor='icon-button-file'>
                       <IconButton
@@ -159,6 +181,11 @@ const UploadFile = () => {
                       </IconButton>
                     </label>
                   </Grid>
+                  <div className={classes.divImg}>
+                    {secondFile && (
+                      <img src={secondFile} alt={''} className={classes.img} />
+                    )}
+                  </div>
                 </Grid>
               </Paper>
             </form>
