@@ -4,6 +4,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import { Fragment } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Preview = ({ form }) => {
-  console.log(form);
+  console.log(form.currency);
   const classes = useStyles();
 
   return (
@@ -33,7 +36,24 @@ const Preview = ({ form }) => {
       <ListItem>
         <ListItemText
           primary='Price'
-          secondary={`${form.price} ${form.currency}`}
+          secondary={
+            <div
+              style={{
+                display: 'flex',
+              }}
+            >
+              <p style={{ marginRight: '3px', fontSize: '20px' }}>
+                {form.price}
+              </p>
+              {form.currency === 'dollar' ? (
+                <p>
+                  <AttachMoneyIcon />
+                </p>
+              ) : (
+                <EuroSymbolIcon />
+              )}
+            </div>
+          }
         />
       </ListItem>
       <Divider component='li' />
