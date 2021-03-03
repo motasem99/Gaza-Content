@@ -69,13 +69,8 @@ const onSubmit = (e) => {
   console.log('hiii');
 };
 
-const UploadFile = () => {
+const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
   const classes = useStyles();
-  const [file, setFile] = useState('');
-  const [secondFile, setSecondFile] = useState('');
-
-  console.log(file);
-  console.log(secondFile);
 
   const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
   const dirTheme = localStorage.getItem('dirLang');
@@ -91,7 +86,6 @@ const UploadFile = () => {
     });
 
   const onChange = (file, id) => {
-    console.log(file);
     if (!file) {
       setFile('');
       return;

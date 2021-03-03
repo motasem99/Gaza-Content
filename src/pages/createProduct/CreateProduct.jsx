@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   makeStyles,
   ThemeProvider,
@@ -39,19 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <PreviewFile />;
-    case 1:
-      return <UploadFile />;
-    case 2:
-      return <Preview />;
-    default:
-      return 'Unknown step';
-  }
-}
-
 const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
 
 function getSteps() {
@@ -65,12 +52,34 @@ function getSteps() {
 const CreateProduct = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [file, setFile] = useState('');
+  const [secondFile, setSecondFile] = useState('');
   const [completed, setCompleted] = React.useState(new Set());
   const [skipped, setSkipped] = React.useState(new Set());
 
   const dirTheme = localStorage.getItem('dirLang');
   const ThemeDirection = createMuiTheme({ direction: dirTheme });
   const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <PreviewFile />;
+      case 1:
+        return (
+          <UploadFile
+            file={file}
+            setFile={setFile}
+            secondFile={secondFile}
+            setSecondFile={setSecondFile}
+          />
+        );
+      case 2:
+        return <Preview />;
+      default:
+        return 'Unknown step';
+    }
+  }
 
   const steps = getSteps();
 

@@ -20,7 +20,7 @@ const Lang = {
     AR: 'سعر الملف',
   },
   Currency: {
-    en: 'Currency',
+    EN: 'Currency',
     AR: 'العملة',
   },
   Description: {
