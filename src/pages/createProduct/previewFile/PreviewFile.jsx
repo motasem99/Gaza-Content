@@ -7,7 +7,7 @@ import {
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
-import { Form, Field } from 'react-final-form';
+import { Form } from 'react-final-form';
 import { TextField, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { Paper, Grid, CssBaseline, FormControl } from '@material-ui/core';
 
