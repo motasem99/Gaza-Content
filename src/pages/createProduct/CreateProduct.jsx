@@ -52,10 +52,16 @@ function getSteps() {
 const CreateProduct = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [file, setFile] = useState('');
-  const [secondFile, setSecondFile] = useState('');
   const [completed, setCompleted] = React.useState(new Set());
   const [skipped, setSkipped] = React.useState(new Set());
+  const [file, setFile] = useState('');
+  const [secondFile, setSecondFile] = useState('');
+  const [form, setForm] = useState({
+    name: '',
+    price: '',
+    description: '',
+    currency: '',
+  });
 
   const dirTheme = localStorage.getItem('dirLang');
   const ThemeDirection = createMuiTheme({ direction: dirTheme });
@@ -64,7 +70,7 @@ const CreateProduct = () => {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <PreviewFile />;
+        return <PreviewFile form={form} setForm={setForm} />;
       case 1:
         return (
           <UploadFile
