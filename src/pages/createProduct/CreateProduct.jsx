@@ -56,6 +56,7 @@ const CreateProduct = () => {
   const [skipped, setSkipped] = React.useState(new Set());
   const [file, setFile] = useState('');
   const [secondFile, setSecondFile] = useState('');
+  const [convFile, setConvFile] = useState();
   const [form, setForm] = useState({
     name: '',
     price: '',
@@ -78,10 +79,21 @@ const CreateProduct = () => {
             setFile={setFile}
             secondFile={secondFile}
             setSecondFile={setSecondFile}
+            convFile={convFile}
+            setConvFile={setConvFile}
           />
         );
       case 2:
-        return <Preview />;
+        return (
+          <Preview
+            form={form}
+            setForm={setForm}
+            file={file}
+            setFile={setFile}
+            secondFile={secondFile}
+            setSecondFile={setSecondFile}
+          />
+        );
       default:
         return 'Unknown step';
     }

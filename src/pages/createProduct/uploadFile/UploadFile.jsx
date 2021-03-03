@@ -10,6 +10,8 @@ import { FormLabel } from '@material-ui/core';
 import { Paper, Grid, CssBaseline } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 
 import createLangObject from '../../../Languages/Create';
 
@@ -62,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
   },
+  divSecondFile: {
+    border: '3px solid #000',
+  },
 }));
 
 const onSubmit = (e) => {
@@ -86,15 +91,17 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
     });
 
   const onChange = (file, id) => {
+    if (id === 'icon-button-file2') {
+      setSecondFile(file);
+    }
+
     if (!file) {
       setFile('');
       return;
     }
     fileToDataUri(file).then((file) => {
-      if (id === 'icon-button-file2') {
+      if (id === 'icon-button-file') {
         setFile(file);
-      } else if (id === 'icon-button-file') {
-        setSecondFile(file);
       }
     });
   };
@@ -120,7 +127,7 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
                     <input
                       accept='image/*'
                       className={classes.input}
-                      id='icon-button-file2'
+                      id='icon-button-file'
                       name='firstItem'
                       type='file'
                       onChange={(event) => {
@@ -130,7 +137,7 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
                         );
                       }}
                     />
-                    <label htmlFor='icon-button-file2'>
+                    <label htmlFor='icon-button-file'>
                       <IconButton
                         color='primary'
                         aria-label='upload picture'
@@ -153,9 +160,8 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
                       {createLangObject.UploadTheFile[Language]} :
                     </FormLabel>
                     <input
-                      accept='image/*'
                       className={classes.input}
-                      id='icon-button-file'
+                      id='icon-button-file2'
                       name='secondItem'
                       type='file'
                       onChange={(event) => {
@@ -165,19 +171,22 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
                         );
                       }}
                     />
-                    <label htmlFor='icon-button-file'>
+                    <label htmlFor='icon-button-file2'>
                       <IconButton
                         color='primary'
                         aria-label='upload picture'
                         component='span'
                       >
-                        <PhotoCamera />
+                        <AttachFileIcon />
                       </IconButton>
                     </label>
                   </Grid>
                   <div className={classes.divImg}>
                     {secondFile && (
-                      <img src={secondFile} alt={''} className={classes.img} />
+                      <div className={classes.divSecondFile}>
+                        <InsertDriveFileIcon />
+                        {secondFile.name}
+                      </div>
                     )}
                   </div>
                 </Grid>
