@@ -65,7 +65,16 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   divSecondFile: {
-    border: '3px solid #000',
+    border: '1px dashed #ccc',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: '15px',
+    paddingTop: '15px',
+    alignItems: 'center',
+  },
+  spanSecondFile: {
+    marginLeft: '5px',
   },
 }));
 
@@ -125,7 +134,6 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
                       {createLangObject.SmallPreview[Language]} :
                     </FormLabel>
                     <input
-                      accept='image/*'
                       className={classes.input}
                       id='icon-button-file'
                       name='firstItem'
@@ -184,8 +192,10 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
                   <div className={classes.divImg}>
                     {secondFile && (
                       <div className={classes.divSecondFile}>
-                        <InsertDriveFileIcon />
-                        {secondFile.name}
+                        <InsertDriveFileIcon color='primary' fontSize='large' />
+                        <span className={classes.spanSecondFile}>
+                          {secondFile.name}
+                        </span>
                       </div>
                     )}
                   </div>
