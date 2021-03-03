@@ -6,7 +6,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
-import { Fragment } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
