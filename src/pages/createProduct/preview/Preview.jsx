@@ -70,8 +70,8 @@ const Preview = ({ form, secondFile, file, convFile }) => {
   const classes = useStyles();
 
   return (
-    <Fragment>
-      <ThemeProvider theme={ThemeDirection}>
+    <ThemeProvider theme={ThemeDirection}>
+      <Fragment>
         <List className={classes.root}>
           <ListItem>
             <ListItemText
@@ -131,8 +131,8 @@ const Preview = ({ form, secondFile, file, convFile }) => {
             <span className={classes.spanSecondFile}>{secondFile.name}</span>
           </div>
         </div>
-      </ThemeProvider>
-    </Fragment>
+      </Fragment>
+    </ThemeProvider>
   );
 };
 
