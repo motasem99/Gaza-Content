@@ -92,6 +92,8 @@ const CreateProduct = () => {
             setFile={setFile}
             secondFile={secondFile}
             setSecondFile={setSecondFile}
+            setConvFile={setConvFile}
+            convFile={convFile}
           />
         );
       default:

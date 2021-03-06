@@ -83,7 +83,14 @@ const onSubmit = (e) => {
   console.log('hiii');
 };
 
-const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
+const UploadFile = ({
+  file,
+  setFile,
+  secondFile,
+  setSecondFile,
+  convFile,
+  setConvFile,
+}) => {
   const classes = useStyles();
 
   const Language = localStorage.getItem('dirLang') === 'ltr' ? 'EN' : 'AR';
@@ -103,6 +110,9 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
     if (id === 'icon-button-file2') {
       setSecondFile(file);
     }
+    if (id === 'icon-button-file') {
+      setFile(file);
+    }
 
     if (!file) {
       setFile('');
@@ -110,7 +120,7 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
     }
     fileToDataUri(file).then((file) => {
       if (id === 'icon-button-file') {
-        setFile(file);
+        setConvFile(file);
       }
     });
   };
@@ -156,8 +166,8 @@ const UploadFile = ({ file, setFile, secondFile, setSecondFile }) => {
                     </label>
                   </Grid>
                   <div className={classes.divImg}>
-                    {file && (
-                      <img src={file} alt={''} className={classes.img} />
+                    {convFile && (
+                      <img src={convFile} alt={''} className={classes.img} />
                     )}
                   </div>
                   <Grid item xs={12} className={classes.root}>
