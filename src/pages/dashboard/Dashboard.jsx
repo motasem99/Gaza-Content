@@ -22,9 +22,9 @@ import {
 } from '@material-ui/core/styles';
 
 // Language
-import DashboardLangObject from '../../Languages/Dashbord.js';
+import DashboardLangObject from '../../Languages/Dashboard.js';
 // Components
-import DashbordNav from '../../components/DashbordNav/DashbordNav';
+import DashbordNav from '../../components/DashboardNav/DashboardNav';
 
 const drawerWidth = 240;
 
