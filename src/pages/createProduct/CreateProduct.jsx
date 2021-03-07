@@ -10,9 +10,9 @@ import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import PreviewFile from './previewFile/PreviewFile';
-import UploadFile from './uploadFile/UploadFile';
-import Preview from './preview/Preview';
+import PreviewFile from '../../components/previewFile/PreviewFile';
+import UploadFile from '../../components/uploadFile/UploadFile';
+import Preview from '../../components/preview/Preview';
 
 import createLangObject from '../../Languages/Create';
 import { StepLabel } from '@material-ui/core';
