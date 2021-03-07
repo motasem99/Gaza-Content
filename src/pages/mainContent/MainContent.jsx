@@ -65,7 +65,7 @@ const MainContent = () => {
       price: '20',
       currency: 'e',
       description:
-        'description description description description description description description description description description ',
+        'This is your description about your product describe any thing you want :)',
       authName: 'noor',
     },
   ]);
