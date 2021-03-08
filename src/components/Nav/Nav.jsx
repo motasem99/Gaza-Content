@@ -9,9 +9,13 @@ import {
   ThemeProvider,
 } from '@material-ui/core/styles';
 
+// Router
 import { Link } from 'react-router-dom';
+// Style
 import styles from './Nav.module.css';
-import Languege from './Language';
+// Component
+import LanguageButton from './Language';
+// Language
 import NavLangObject from '../../Languages/Nav';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +58,7 @@ const Nav = ({ direction, setDirection }) => {
               >
                 {NavLangObject.signup[Language]}
               </Button>
-              <Languege
+              <LanguageButton
                 className={classes.menuButton}
                 direction={direction}
                 setDirection={setDirection}

@@ -16,7 +16,10 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import { Fragment } from 'react';
 
+// PhotoCard
 import Logo from '../../assets/img/newphoto.webp';
+
+// Language
 import MainLangObject from '../../Languages/MainContent';
 
 const useStyles = makeStyles((theme) => ({

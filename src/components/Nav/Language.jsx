@@ -37,7 +37,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const Languege = ({ setDirection, direction }) => {
+const Language = ({ setDirection, direction }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentLang, setCurrentLang] = useState('en');
 
@@ -90,4 +90,4 @@ const Languege = ({ setDirection, direction }) => {
   );
 };
 
-export default Languege;
+export default Language;
