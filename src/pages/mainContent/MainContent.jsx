@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatarP: {
     fontSize: '20px',
+    margin: '0 10px',
   },
   divPrice: {
     display: 'flex',
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '20px auto auto',
     marginTop: '-17px',
     border: '1px solid #ccc',
-    width: '160px',
+    width: '220px',
     position: 'relative',
     backgroundColor: 'white',
   },
@@ -169,57 +170,65 @@ const MainContent = () => {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder='Search…'
+                placeholder={MainLangObject.Search[Language]}
                 inputProps={{ 'aria-label': 'search' }}
               />
             </div>
 
             <FormControl component='fieldset' className={classes.radioGroup}>
-              <FormLabel component='legend'>Subjects</FormLabel>
+              <h2>{MainLangObject.Subjects[Language]}</h2>
               <RadioGroup
                 aria-label='gender'
                 name='gender1'
                 value={value}
                 onChange={handleChange}
               >
-                <FormControlLabel value='all' control={<Radio />} label='All' />
-                <FormControlLabel value='iT' control={<Radio />} label='IT' />
+                <FormControlLabel
+                  value='all'
+                  control={<Radio />}
+                  label={MainLangObject.All[Language]}
+                />
+                <FormControlLabel
+                  value='iT'
+                  control={<Radio />}
+                  label={MainLangObject.IT[Language]}
+                />
                 <FormControlLabel
                   value='sports'
                   control={<Radio />}
-                  label='Sports'
+                  label={MainLangObject.Sports[Language]}
                 />
                 <FormControlLabel
                   value='languages'
                   control={<Radio />}
-                  label='Languages'
+                  label={MainLangObject.Languages[Language]}
                 />
                 <FormControlLabel
                   value='medicine'
                   control={<Radio />}
-                  label='Medicine'
+                  label={MainLangObject.Medicine[Language]}
                 />
                 <FormControlLabel
                   value='mechanics'
                   control={<Radio />}
-                  label='Mechanics'
+                  label={MainLangObject.Mechanics[Language]}
                 />
                 <FormControlLabel
                   value='engineering'
                   control={<Radio />}
-                  label='Engineering'
+                  label={MainLangObject.Engineering[Language]}
                 />
                 <FormControlLabel
                   value='history'
                   control={<Radio />}
-                  label='History'
+                  label={MainLangObject.History[Language]}
                 />
               </RadioGroup>
             </FormControl>
 
             <div className={classes.rangeValue}>
               <Typography id='discrete-slider-always' gutterBottom>
-                Price Range:
+                {MainLangObject.PriceRange[Language]}:
               </Typography>
               <Slider
                 defaultValue={80}
