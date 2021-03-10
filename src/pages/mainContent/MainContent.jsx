@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     borderRadius: '5px',
     height: '30px',
-    margin: '10px auto auto',
+    margin: '20px auto auto',
   },
   searchIcon: {
     display: 'flex',
@@ -100,6 +100,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '5px',
     marginLeft: '40px',
     height: '600px',
+    width: '15%',
+  },
+  radioGroup: {
+    marginLeft: '40px',
+    marginTop: '30px',
   },
 }));
 
@@ -142,10 +147,7 @@ const MainContent = () => {
             />
           </div>
 
-          <FormControl
-            component='fieldset'
-            style={{ marginLeft: '30px', marginTop: '30px' }}
-          >
+          <FormControl component='fieldset' className={classes.radioGroup}>
             <FormLabel component='legend'>Gender</FormLabel>
             <RadioGroup
               aria-label='gender'
