@@ -19,6 +19,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { Fragment } from 'react';
 
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
 // PhotoCard
 import Logo from '../../assets/img/newphoto.webp';
 
@@ -78,9 +84,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     borderRadius: '5px',
-    border: '1px solid #ccc',
     height: '30px',
-    margin: '90px auto auto',
+    margin: '10px auto auto',
   },
   searchIcon: {
     display: 'flex',
@@ -88,6 +93,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginRight: '5px',
     marginLeft: '10px',
+  },
+  side: {
+    marginTop: '90px',
+    boxShadow: '0px 1px 3px 0px #888888',
+    borderRadius: '5px',
+    marginLeft: '40px',
+    height: '600px',
   },
 }));
 
@@ -107,20 +119,53 @@ const MainContent = () => {
     },
   ]);
 
+  const [value, setValue] = useState('female');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   const moment = require('moment'); // require
   const m = moment().calendar();
 
   return (
     <Fragment>
       <div style={{ display: 'flex' }}>
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
+        <div className={classes.side}>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder='Search…'
+              inputProps={{ 'aria-label': 'search' }}
+            />
           </div>
-          <InputBase
-            placeholder='Search…'
-            inputProps={{ 'aria-label': 'search' }}
-          />
+
+          <FormControl
+            component='fieldset'
+            style={{ marginLeft: '30px', marginTop: '30px' }}
+          >
+            <FormLabel component='legend'>Gender</FormLabel>
+            <RadioGroup
+              aria-label='gender'
+              name='gender1'
+              value={value}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value='female'
+                control={<Radio />}
+                label='Female'
+              />
+              <FormControlLabel value='male' control={<Radio />} label='Male' />
+              <FormControlLabel
+                value='other'
+                control={<Radio />}
+                label='Other'
+              />
+            </RadioGroup>
+          </FormControl>
         </div>
 
         <div className={classes.cards}>
