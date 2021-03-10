@@ -3,7 +3,6 @@ import {
   makeStyles,
   createMuiTheme,
   ThemeProvider,
-  fade,
 } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -24,6 +23,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Slider from '@material-ui/core/Slider';
 
 // PhotoCard
 import Logo from '../../assets/img/newphoto.webp';
@@ -86,6 +86,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '5px',
     height: '30px',
     margin: '20px auto auto',
+    marginTop: '-17px',
+    border: '1px solid #ccc',
+    width: '160px',
+    position: 'relative',
+    backgroundColor: 'white',
   },
   searchIcon: {
     display: 'flex',
@@ -96,15 +101,21 @@ const useStyles = makeStyles((theme) => ({
   },
   side: {
     marginTop: '90px',
-    boxShadow: '0px 1px 3px 0px #888888',
+    boxShadow: '0 5px 20px rgb(0 0 0 / 12%)',
     borderRadius: '5px',
     marginLeft: '40px',
+    marginRight: '40px',
     height: '600px',
     width: '15%',
   },
   radioGroup: {
     marginLeft: '40px',
+    marginRight: '40px',
     marginTop: '30px',
+  },
+  rangeValue: {
+    width: '170px',
+    margin: ' 10px auto',
   },
 }));
 
@@ -124,7 +135,22 @@ const MainContent = () => {
     },
   ]);
 
-  const [value, setValue] = useState('female');
+  const [value, setValue] = useState('all');
+
+  const marks = [
+    {
+      value: 0,
+      label: '0$',
+    },
+    {
+      value: 100,
+      label: '100$',
+    },
+  ];
+
+  function valuetext(value) {
+    return `${value}°C`;
+  }
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -135,319 +161,354 @@ const MainContent = () => {
 
   return (
     <Fragment>
-      <div style={{ display: 'flex' }}>
-        <div className={classes.side}>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+      <ThemeProvider theme={ThemeDirection}>
+        <div style={{ display: 'flex' }}>
+          <div className={classes.side}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              placeholder='Search…'
-              inputProps={{ 'aria-label': 'search' }}
-            />
+
+            <FormControl component='fieldset' className={classes.radioGroup}>
+              <FormLabel component='legend'>Subjects</FormLabel>
+              <RadioGroup
+                aria-label='gender'
+                name='gender1'
+                value={value}
+                onChange={handleChange}
+              >
+                <FormControlLabel value='all' control={<Radio />} label='All' />
+                <FormControlLabel value='iT' control={<Radio />} label='IT' />
+                <FormControlLabel
+                  value='sports'
+                  control={<Radio />}
+                  label='Sports'
+                />
+                <FormControlLabel
+                  value='languages'
+                  control={<Radio />}
+                  label='Languages'
+                />
+                <FormControlLabel
+                  value='medicine'
+                  control={<Radio />}
+                  label='Medicine'
+                />
+                <FormControlLabel
+                  value='mechanics'
+                  control={<Radio />}
+                  label='Mechanics'
+                />
+                <FormControlLabel
+                  value='engineering'
+                  control={<Radio />}
+                  label='Engineering'
+                />
+                <FormControlLabel
+                  value='history'
+                  control={<Radio />}
+                  label='History'
+                />
+              </RadioGroup>
+            </FormControl>
+
+            <div className={classes.rangeValue}>
+              <Typography id='discrete-slider-always' gutterBottom>
+                Price Range:
+              </Typography>
+              <Slider
+                defaultValue={80}
+                getAriaValueText={valuetext}
+                aria-labelledby='discrete-slider-always'
+                step={10}
+                marks={marks}
+                valueLabelDisplay='on'
+              />
+            </div>
           </div>
 
-          <FormControl component='fieldset' className={classes.radioGroup}>
-            <FormLabel component='legend'>Gender</FormLabel>
-            <RadioGroup
-              aria-label='gender'
-              name='gender1'
-              value={value}
-              onChange={handleChange}
-            >
-              <FormControlLabel
-                value='female'
-                control={<Radio />}
-                label='Female'
-              />
-              <FormControlLabel value='male' control={<Radio />} label='Male' />
-              <FormControlLabel
-                value='other'
-                control={<Radio />}
-                label='Other'
-              />
-            </RadioGroup>
-          </FormControl>
+          <div className={classes.cards}>
+            {data.map((item) => {
+              return (
+                <Fragment>
+                  <Card className={classes.root}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={Logo}
+                        title='Contemplative Reptile'
+                      />
+                      <div className={classes.userInfo}>
+                        <Avatar
+                          alt='Remy Sharp'
+                          src='/static/images/avatar/1.jpg'
+                          className={classes.avatar}
+                        />
+                        <Typography
+                          variant='h5'
+                          component='h2'
+                          className={classes.avatarP}
+                        >
+                          {item.authName}
+                        </Typography>
+                      </div>
+                      <CardContent>
+                        <div className={classes.cardContent}>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                            {item.name}
+                          </Typography>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                            <div className={classes.divPrice}>
+                              <p className={classes.pPrice}>{item.price}</p>
+                              {item.currency === 'd' ? (
+                                <p>
+                                  <AttachMoneyIcon />
+                                </p>
+                              ) : (
+                                <p>
+                                  <EuroSymbolIcon />
+                                </p>
+                              )}
+                            </div>
+                          </Typography>
+                        </div>
+                        <Typography
+                          variant='body2'
+                          color='textSecondary'
+                          component='p'
+                        >
+                          {item.description}
+                        </Typography>
+                      </CardContent>
+                      <Typography
+                        variant='h5'
+                        component='h2'
+                        className={classes.date}
+                      >
+                        {m}
+                      </Typography>
+                    </CardActionArea>
+                    <CardActions className={classes.cardActions}>
+                      <Button size='small' color='primary'>
+                        {MainLangObject.AddToCart[Language]}
+                      </Button>
+                      <Button size='small' color='primary'>
+                        {MainLangObject.ShowMore[Language]}
+                      </Button>
+                    </CardActions>
+                  </Card>
+
+                  <Card className={classes.root}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={Logo}
+                        title='Contemplative Reptile'
+                      />
+                      <div className={classes.userInfo}>
+                        <Avatar
+                          alt='Remy Sharp'
+                          src='/static/images/avatar/1.jpg'
+                          className={classes.avatar}
+                        />
+                        <Typography
+                          variant='h5'
+                          component='h2'
+                          className={classes.avatarP}
+                        >
+                          {item.authName}
+                        </Typography>
+                      </div>
+                      <CardContent>
+                        <div className={classes.cardContent}>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                            {item.name}
+                          </Typography>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                            <div className={classes.divPrice}>
+                              <p className={classes.pPrice}>{item.price}</p>
+                              {item.currency === 'd' ? (
+                                <p>
+                                  <AttachMoneyIcon />
+                                </p>
+                              ) : (
+                                <p>
+                                  <EuroSymbolIcon />
+                                </p>
+                              )}
+                            </div>
+                          </Typography>
+                        </div>
+                        <Typography
+                          variant='body2'
+                          color='textSecondary'
+                          component='p'
+                        >
+                          {item.description}
+                        </Typography>
+                      </CardContent>
+                      <Typography
+                        variant='h5'
+                        component='h2'
+                        className={classes.date}
+                      >
+                        {m}
+                      </Typography>
+                    </CardActionArea>
+                    <CardActions className={classes.cardActions}>
+                      <Button size='small' color='primary'>
+                        {MainLangObject.AddToCart[Language]}
+                      </Button>
+                      <Button size='small' color='primary'>
+                        {MainLangObject.ShowMore[Language]}
+                      </Button>
+                    </CardActions>
+                  </Card>
+
+                  <Card className={classes.root}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={Logo}
+                        title='Contemplative Reptile'
+                      />
+                      <div className={classes.userInfo}>
+                        <Avatar
+                          alt='Remy Sharp'
+                          src='/static/images/avatar/1.jpg'
+                          className={classes.avatar}
+                        />
+                        <Typography
+                          variant='h5'
+                          component='h2'
+                          className={classes.avatarP}
+                        >
+                          {item.authName}
+                        </Typography>
+                      </div>
+                      <CardContent>
+                        <div className={classes.cardContent}>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                            {item.name}
+                          </Typography>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                            <div className={classes.divPrice}>
+                              <p className={classes.pPrice}>{item.price}</p>
+                              {item.currency === 'd' ? (
+                                <p>
+                                  <AttachMoneyIcon />
+                                </p>
+                              ) : (
+                                <p>
+                                  <EuroSymbolIcon />
+                                </p>
+                              )}
+                            </div>
+                          </Typography>
+                        </div>
+                        <Typography
+                          variant='body2'
+                          color='textSecondary'
+                          component='p'
+                        >
+                          {item.description}
+                        </Typography>
+                      </CardContent>
+                      <Typography
+                        variant='h5'
+                        component='h2'
+                        className={classes.date}
+                      >
+                        {m}
+                      </Typography>
+                    </CardActionArea>
+                    <CardActions className={classes.cardActions}>
+                      <Button size='small' color='primary'>
+                        {MainLangObject.AddToCart[Language]}
+                      </Button>
+                      <Button size='small' color='primary'>
+                        {MainLangObject.ShowMore[Language]}
+                      </Button>
+                    </CardActions>
+                  </Card>
+
+                  <Card className={classes.root}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={Logo}
+                        title='Contemplative Reptile'
+                      />
+                      <div className={classes.userInfo}>
+                        <Avatar
+                          alt='Remy Sharp'
+                          src='/static/images/avatar/1.jpg'
+                          className={classes.avatar}
+                        />
+                        <Typography
+                          variant='h5'
+                          component='h2'
+                          className={classes.avatarP}
+                        >
+                          {item.authName}
+                        </Typography>
+                      </div>
+                      <CardContent>
+                        <div className={classes.cardContent}>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                            {item.name}
+                          </Typography>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                            <div className={classes.divPrice}>
+                              <p className={classes.pPrice}>{item.price}</p>
+                              {item.currency === 'd' ? (
+                                <p>
+                                  <AttachMoneyIcon />
+                                </p>
+                              ) : (
+                                <p>
+                                  <EuroSymbolIcon />
+                                </p>
+                              )}
+                            </div>
+                          </Typography>
+                        </div>
+                        <Typography
+                          variant='body2'
+                          color='textSecondary'
+                          component='p'
+                        >
+                          {item.description}
+                        </Typography>
+                      </CardContent>
+                      <Typography
+                        variant='h5'
+                        component='h2'
+                        className={classes.date}
+                      >
+                        {m}
+                      </Typography>
+                    </CardActionArea>
+                    <CardActions className={classes.cardActions}>
+                      <Button size='small' color='primary'>
+                        {MainLangObject.AddToCart[Language]}
+                      </Button>
+                      <Button size='small' color='primary'>
+                        {MainLangObject.ShowMore[Language]}
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Fragment>
+              );
+            })}
+          </div>
         </div>
-
-        <div className={classes.cards}>
-          {data.map((item) => {
-            return (
-              <Fragment>
-                <ThemeProvider theme={ThemeDirection}>
-                  <Card className={classes.root}>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        image={Logo}
-                        title='Contemplative Reptile'
-                      />
-                      <div className={classes.userInfo}>
-                        <Avatar
-                          alt='Remy Sharp'
-                          src='/static/images/avatar/1.jpg'
-                          className={classes.avatar}
-                        />
-                        <Typography
-                          variant='h5'
-                          component='h2'
-                          className={classes.avatarP}
-                        >
-                          {item.authName}
-                        </Typography>
-                      </div>
-                      <CardContent>
-                        <div className={classes.cardContent}>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            {item.name}
-                          </Typography>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            <div className={classes.divPrice}>
-                              <p className={classes.pPrice}>{item.price}</p>
-                              {item.currency === 'd' ? (
-                                <p>
-                                  <AttachMoneyIcon />
-                                </p>
-                              ) : (
-                                <p>
-                                  <EuroSymbolIcon />
-                                </p>
-                              )}
-                            </div>
-                          </Typography>
-                        </div>
-                        <Typography
-                          variant='body2'
-                          color='textSecondary'
-                          component='p'
-                        >
-                          {item.description}
-                        </Typography>
-                      </CardContent>
-                      <Typography
-                        variant='h5'
-                        component='h2'
-                        className={classes.date}
-                      >
-                        {m}
-                      </Typography>
-                    </CardActionArea>
-                    <CardActions className={classes.cardActions}>
-                      <Button size='small' color='primary'>
-                        {MainLangObject.AddToCart[Language]}
-                      </Button>
-                      <Button size='small' color='primary'>
-                        {MainLangObject.ShowMore[Language]}
-                      </Button>
-                    </CardActions>
-                  </Card>
-
-                  <Card className={classes.root}>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        image={Logo}
-                        title='Contemplative Reptile'
-                      />
-                      <div className={classes.userInfo}>
-                        <Avatar
-                          alt='Remy Sharp'
-                          src='/static/images/avatar/1.jpg'
-                          className={classes.avatar}
-                        />
-                        <Typography
-                          variant='h5'
-                          component='h2'
-                          className={classes.avatarP}
-                        >
-                          {item.authName}
-                        </Typography>
-                      </div>
-                      <CardContent>
-                        <div className={classes.cardContent}>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            {item.name}
-                          </Typography>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            <div className={classes.divPrice}>
-                              <p className={classes.pPrice}>{item.price}</p>
-                              {item.currency === 'd' ? (
-                                <p>
-                                  <AttachMoneyIcon />
-                                </p>
-                              ) : (
-                                <p>
-                                  <EuroSymbolIcon />
-                                </p>
-                              )}
-                            </div>
-                          </Typography>
-                        </div>
-                        <Typography
-                          variant='body2'
-                          color='textSecondary'
-                          component='p'
-                        >
-                          {item.description}
-                        </Typography>
-                      </CardContent>
-                      <Typography
-                        variant='h5'
-                        component='h2'
-                        className={classes.date}
-                      >
-                        {m}
-                      </Typography>
-                    </CardActionArea>
-                    <CardActions className={classes.cardActions}>
-                      <Button size='small' color='primary'>
-                        {MainLangObject.AddToCart[Language]}
-                      </Button>
-                      <Button size='small' color='primary'>
-                        {MainLangObject.ShowMore[Language]}
-                      </Button>
-                    </CardActions>
-                  </Card>
-
-                  <Card className={classes.root}>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        image={Logo}
-                        title='Contemplative Reptile'
-                      />
-                      <div className={classes.userInfo}>
-                        <Avatar
-                          alt='Remy Sharp'
-                          src='/static/images/avatar/1.jpg'
-                          className={classes.avatar}
-                        />
-                        <Typography
-                          variant='h5'
-                          component='h2'
-                          className={classes.avatarP}
-                        >
-                          {item.authName}
-                        </Typography>
-                      </div>
-                      <CardContent>
-                        <div className={classes.cardContent}>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            {item.name}
-                          </Typography>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            <div className={classes.divPrice}>
-                              <p className={classes.pPrice}>{item.price}</p>
-                              {item.currency === 'd' ? (
-                                <p>
-                                  <AttachMoneyIcon />
-                                </p>
-                              ) : (
-                                <p>
-                                  <EuroSymbolIcon />
-                                </p>
-                              )}
-                            </div>
-                          </Typography>
-                        </div>
-                        <Typography
-                          variant='body2'
-                          color='textSecondary'
-                          component='p'
-                        >
-                          {item.description}
-                        </Typography>
-                      </CardContent>
-                      <Typography
-                        variant='h5'
-                        component='h2'
-                        className={classes.date}
-                      >
-                        {m}
-                      </Typography>
-                    </CardActionArea>
-                    <CardActions className={classes.cardActions}>
-                      <Button size='small' color='primary'>
-                        {MainLangObject.AddToCart[Language]}
-                      </Button>
-                      <Button size='small' color='primary'>
-                        {MainLangObject.ShowMore[Language]}
-                      </Button>
-                    </CardActions>
-                  </Card>
-
-                  <Card className={classes.root}>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        image={Logo}
-                        title='Contemplative Reptile'
-                      />
-                      <div className={classes.userInfo}>
-                        <Avatar
-                          alt='Remy Sharp'
-                          src='/static/images/avatar/1.jpg'
-                          className={classes.avatar}
-                        />
-                        <Typography
-                          variant='h5'
-                          component='h2'
-                          className={classes.avatarP}
-                        >
-                          {item.authName}
-                        </Typography>
-                      </div>
-                      <CardContent>
-                        <div className={classes.cardContent}>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            {item.name}
-                          </Typography>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            <div className={classes.divPrice}>
-                              <p className={classes.pPrice}>{item.price}</p>
-                              {item.currency === 'd' ? (
-                                <p>
-                                  <AttachMoneyIcon />
-                                </p>
-                              ) : (
-                                <p>
-                                  <EuroSymbolIcon />
-                                </p>
-                              )}
-                            </div>
-                          </Typography>
-                        </div>
-                        <Typography
-                          variant='body2'
-                          color='textSecondary'
-                          component='p'
-                        >
-                          {item.description}
-                        </Typography>
-                      </CardContent>
-                      <Typography
-                        variant='h5'
-                        component='h2'
-                        className={classes.date}
-                      >
-                        {m}
-                      </Typography>
-                    </CardActionArea>
-                    <CardActions className={classes.cardActions}>
-                      <Button size='small' color='primary'>
-                        {MainLangObject.AddToCart[Language]}
-                      </Button>
-                      <Button size='small' color='primary'>
-                        {MainLangObject.ShowMore[Language]}
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </ThemeProvider>
-              </Fragment>
-            );
-          })}
-        </div>
-      </div>
+      </ThemeProvider>
     </Fragment>
   );
 };
