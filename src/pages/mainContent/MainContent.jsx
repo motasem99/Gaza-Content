@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Fragment } from 'react';
 import {
   makeStyles,
   createMuiTheme,
@@ -16,8 +17,6 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import { Fragment } from 'react';
-
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -34,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '70px',
     maxWidth: 345,
+  },
+  container: {
+    display: 'flex',
   },
   media: {
     height: '140px',
@@ -88,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '20px auto auto',
     marginTop: '-17px',
     border: '1px solid #ccc',
-    width: '220px',
+    width: '80%',
     position: 'relative',
     backgroundColor: 'white',
   },
@@ -106,16 +108,23 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '40px',
     marginRight: '40px',
     height: '600px',
-    width: '15%',
+    width: '20%',
   },
   radioGroup: {
     marginLeft: '40px',
     marginRight: '40px',
-    marginTop: '30px',
   },
   rangeValue: {
-    width: '170px',
-    margin: ' 10px auto',
+    width: '90%',
+    margin: ' 30px auto',
+  },
+  subjects: {
+    fontWeight: 'bold',
+    marginLeft: '15px',
+    marginRight: '15px',
+  },
+  priceRange: {
+    fontWeight: 'bold',
   },
 }));
 
@@ -162,7 +171,7 @@ const MainContent = () => {
   return (
     <Fragment>
       <ThemeProvider theme={ThemeDirection}>
-        <div style={{ display: 'flex' }}>
+        <div className={classes.container}>
           <div className={classes.side}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -174,9 +183,34 @@ const MainContent = () => {
               />
             </div>
 
-            <FormControl component='fieldset' className={classes.radioGroup}>
-              <h2>{MainLangObject.Subjects[Language]}</h2>
+            <div className={classes.rangeValue}>
+              <Typography
+                id='discrete-slider-always'
+                gutterBottom
+                className={classes.priceRange}
+              >
+                {MainLangObject.PriceRange[Language]}:
+              </Typography>
+              <Slider
+                defaultValue={80}
+                getAriaValueText={valuetext}
+                aria-labelledby='discrete-slider-always'
+                step={10}
+                marks={marks}
+                valueLabelDisplay='on'
+              />
+            </div>
+
+            <FormControl component='fieldset'>
+              <Typography
+                id='discrete-slider-always'
+                gutterBottom
+                className={classes.subjects}
+              >
+                {MainLangObject.Subjects[Language]}:
+              </Typography>
               <RadioGroup
+                className={classes.radioGroup}
                 aria-label='gender'
                 name='gender1'
                 value={value}
@@ -224,20 +258,6 @@ const MainContent = () => {
                 />
               </RadioGroup>
             </FormControl>
-
-            <div className={classes.rangeValue}>
-              <Typography id='discrete-slider-always' gutterBottom>
-                {MainLangObject.PriceRange[Language]}:
-              </Typography>
-              <Slider
-                defaultValue={80}
-                getAriaValueText={valuetext}
-                aria-labelledby='discrete-slider-always'
-                step={10}
-                marks={marks}
-                valueLabelDisplay='on'
-              />
-            </div>
           </div>
 
           <div className={classes.cards}>
