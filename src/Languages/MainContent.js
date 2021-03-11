@@ -32,7 +32,7 @@ const Lang = {
     AR: 'طب',
   },
   Mechanics: {
-    EN: 'Medicine',
+    EN: 'Mechanics',
     AR: 'ميكانيكا',
   },
   Engineering: {
