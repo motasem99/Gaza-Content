@@ -21,6 +21,7 @@ import Signin from './pages/signin/Signin.jsx';
 import Dashboard from './pages/dashboard/Dashboard.jsx';
 import CreateProduct from './pages/createProduct/CreateProduct.jsx';
 import MainContent from './pages/mainContent/MainContent';
+import Chat from './pages/chat/Chat.jsx';
 
 const App = () => {
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -46,6 +47,7 @@ const App = () => {
               <Route path='/dashboard' exact component={Dashboard} />
               <Route path='/create' exact component={CreateProduct} />
               <Route path='/main' exact component={MainContent} />
+              <Route path='/chat' exact component={Chat} />
             </Switch>
           </Router>
         </div>
