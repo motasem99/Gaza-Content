@@ -10,27 +10,30 @@ const useStyles = makeStyles((theme) => ({
     margin: '50px auto',
   },
   sidebar: {
-    border: '1px solid #000',
+    border: '1px solid #c4c4c4',
     height: '80vh',
     width: '25%',
-  },
-  sidebarTitle: {},
-  sidebarHeader: {
-    height: '70px',
-    borderBottom: '1px solid #000',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
   },
   chat: {
     width: '70%',
   },
-
+  sidebarHeader: {
+    height: '70px',
+    borderBottom: '0.5px solid #c4c4c4',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: '#f4f4f4',
+  },
+  sidebarTitle: {
+    color: '#05728f',
+    fontSize: '23px',
+  },
   search: {
     display: 'flex',
     alignItems: 'center',
     borderRadius: '5px',
-    border: '1px solid #ccc',
+    borderBottom: '1px solid #cdcdcd',
     width: '60%',
     backgroundColor: 'white',
   },
