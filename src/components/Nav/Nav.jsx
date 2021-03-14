@@ -26,8 +26,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(3),
     marginLeft: theme.spacing(3),
   },
-  Btn: {
-    marginLeft: '24px',
+  '@media (max-width: 414px)': {
+    menuButton: {
+      marginRight: theme.spacing(2),
+      marginLeft: theme.spacing(2),
+    },
   },
 }));
 
@@ -46,7 +49,7 @@ const Nav = ({ direction, setDirection }) => {
             <h2>LOGO</h2>
             <nav className={styles.navbar}>
               <Button
-                className={classes.Btn}
+                className={classes.menuButton}
                 component={Link}
                 to='/signin'
                 color='inherit'
@@ -54,7 +57,7 @@ const Nav = ({ direction, setDirection }) => {
                 {NavLangObject.login[Language]}
               </Button>
               <Button
-                className={classes.Btn}
+                className={classes.menuButton}
                 component={Link}
                 to='/signup'
                 color='inherit'
