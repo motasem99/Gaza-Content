@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#646464',
     fontSize: '14px',
     margin: '0',
-    padding: '5px 10px 5px 12px',
+    padding: '10px 10px 10px 12px',
     width: '80%',
   },
   spanMessageDate: {
@@ -128,6 +128,8 @@ const useStyles = makeStyles((theme) => ({
   },
   sentMessage: {
     width: '45%',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   sentMessageP: {
     background: '#05728f none repeat scroll 0 0',
@@ -135,14 +137,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px',
     margin: '0',
     color: '#fff',
-    padding: '5px 10px 5px 12px',
+    padding: '10px 10px 10px 12px',
     width: '80%',
+    alignSelf: 'flex-end',
   },
   sentMessageDate: {
     display: 'block',
     fontSize: '12px',
     margin: '8px 0 0',
     color: '#747474',
+    alignSelf: 'flex-end',
   },
   typeMessage: {
     borderTop: '1px solid #c4c4c4',
@@ -155,16 +159,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '15px',
     minHeight: '48px',
     width: '100%',
-    focus: {
-      border: 'none',
-    },
+    outline: 'none',
   },
   messageSendBtn: {
     border: 'none',
     background: 'none',
+    outline: 'none',
   },
   inputMessageWrite: {
     display: 'flex',
+  },
+  sentMassageContent: {
+    display: 'flex',
+    justifyContent: 'right',
+    flexDirection: 'column',
   },
 }));
 
@@ -216,10 +224,17 @@ function Chat() {
           </div>
           <div className={classes.outgoingMessage}>
             <div className={classes.sentMessage}>
-              <p className={classes.sentMessageP}>
-                Test which is a new approach to have all solutions
-              </p>
-              <span className={classes.sentMessageDate}>11:01 AM | today</span>
+              <div className={classes.sentMassageContent}>
+                <p className={classes.sentMessageP}>
+                  Test which is a new approach to have all solutions
+                </p>
+                <span className={classes.sentMessageDate}>
+                  11:01 AM | today
+                </span>
+              </div>
+              <div className={classes.incomingAvatar}>
+                <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+              </div>
             </div>
           </div>
         </div>
