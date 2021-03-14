@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px',
     marginTop: '5px',
     padding: '10px 10px 10px 12px',
-    width: '80%',
+    width: '63%',
   },
   spanMessageDate: {
     color: '#747474',
