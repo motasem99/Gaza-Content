@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { InputBase } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
+import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -17,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0 5px 20px rgb(0 0 0 / 17%)',
     borderRadius: '4px',
   },
-  chat: {
-    width: '70%',
-  },
+
   sidebarHeader: {
     height: '40px',
     borderBottom: '0.5px solid #c4c4c4',
@@ -79,6 +78,94 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '20px',
     marginLeft: '20px',
   },
+  chat: {
+    width: '70%',
+    padding: '30px 15px 0 25px',
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1',
+  },
+  messages: {
+    height: '72vh',
+    msOverflowY: 'auto',
+  },
+  incomingMessage: {
+    display: 'flex',
+  },
+
+  incomingAvatar: {
+    marginRight: '10px',
+    marginLeft: '10px',
+  },
+  theMessage: {
+    display: 'inline-block',
+    padding: '0 0 0 10px',
+    verticalAlign: 'top',
+    width: '92%',
+  },
+  incomingWidth: {
+    width: '57%',
+  },
+  theMessageP: {
+    background: '#ebebeb none repeat scroll 0 0',
+    borderRadius: '3px',
+    color: '#646464',
+    fontSize: '14px',
+    margin: '0',
+    padding: '5px 10px 5px 12px',
+    width: '80%',
+  },
+  spanMessageDate: {
+    color: '#747474',
+    display: 'block',
+    fontSize: '12px',
+    margin: '8px 0 0',
+  },
+  outgoingMessage: {
+    margin: '26px 0 26px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  sentMessage: {
+    width: '45%',
+  },
+  sentMessageP: {
+    background: '#05728f none repeat scroll 0 0',
+    borderRadius: '3px',
+    fontSize: '14px',
+    margin: '0',
+    color: '#fff',
+    padding: '5px 10px 5px 12px',
+    width: '80%',
+  },
+  sentMessageDate: {
+    display: 'block',
+    fontSize: '12px',
+    margin: '8px 0 0',
+    color: '#747474',
+  },
+  typeMessage: {
+    borderTop: '1px solid #c4c4c4',
+    position: 'relative',
+  },
+  writeMessage: {
+    background: 'rgba(0, 0, 0, 0) none repeat scroll 0 0',
+    border: 'medium none',
+    color: '##605959',
+    fontSize: '15px',
+    minHeight: '48px',
+    width: '100%',
+    focus: {
+      border: 'none',
+    },
+  },
+  messageSendBtn: {
+    border: 'none',
+    background: 'none',
+  },
+  inputMessageWrite: {
+    display: 'flex',
+  },
 }));
 
 function Chat() {
@@ -113,7 +200,41 @@ function Chat() {
         </div>
       </div>
       <div className={classes.chat}>
-        <h1>Chat here</h1>
+        <div className={classes.messages}>
+          <div className={classes.incomingMessage}>
+            <div className={classes.incomingAvatar}>
+              <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+            </div>
+            <div className={classes.theMessage}>
+              <div className={classes.incomingWidth}>
+                <p className={classes.theMessageP}>
+                  this is my message here right now bitch this is my message
+                </p>
+                <span className={classes.spanMessageDate}>11:01 AM june 3</span>
+              </div>
+            </div>
+          </div>
+          <div className={classes.outgoingMessage}>
+            <div className={classes.sentMessage}>
+              <p className={classes.sentMessageP}>
+                Test which is a new approach to have all solutions
+              </p>
+              <span className={classes.sentMessageDate}>11:01 AM | today</span>
+            </div>
+          </div>
+        </div>
+        <div className={classes.typeMessage}>
+          <div className={classes.inputMessageWrite}>
+            <input
+              type='text'
+              className={classes.writeMessage}
+              placeholder='Write Your Message'
+            />
+            <button className={classes.messageSendBtn}>
+              <SendIcon color='primary' className={classes.sendIcon} />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
