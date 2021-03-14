@@ -174,6 +174,39 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     width: '100%',
   },
+  '@media (max-width: 414px)': {
+    sidebar: {
+      display: 'none',
+    },
+    chat: {
+      padding: 0,
+    },
+    incomingMessage: {
+      width: '100%',
+    },
+    theMessage: {
+      width: '100%',
+    },
+    incomingWidth: {
+      width: '90%',
+    },
+    theMessageP: {
+      width: '100%',
+    },
+    sentMessage: {
+      width: '100%',
+    },
+    sentMessageP: {
+      width: '90%',
+    },
+    main: {
+      width: '95%',
+      margin: '50px auto',
+    },
+    messages: {
+      height: '79vh',
+    },
+  },
 }));
 
 function Chat() {
