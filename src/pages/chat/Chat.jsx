@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
   chat: {
     width: '70%',
-    padding: '30px 15px 0 25px',
+    padding: '30px 15px 0 45px',
     display: 'flex',
     flexDirection: 'column',
     flex: '1',
@@ -172,6 +172,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'right',
     flexDirection: 'column',
+    width: '100%',
   },
 }));
 
@@ -217,7 +218,9 @@ function Chat() {
                 <p className={classes.theMessageP}>
                   this is my message here right now bitch this is my message
                 </p>
-                <span className={classes.spanMessageDate}>11:01 AM june 3</span>
+                <span className={classes.spanMessageDate}>
+                  11:01 AM | june 3
+                </span>
               </div>
             </div>
           </div>
