@@ -99,7 +99,6 @@ const useStyles = makeStyles((theme) => ({
   },
   theMessage: {
     display: 'inline-block',
-    padding: '0 0 0 10px',
     verticalAlign: 'top',
     width: '92%',
   },
@@ -111,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '3px',
     color: '#646464',
     fontSize: '14px',
-    margin: '0',
+    marginTop: '5px',
     padding: '10px 10px 10px 12px',
     width: '80%',
   },
