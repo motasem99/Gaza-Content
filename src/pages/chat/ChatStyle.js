@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   },
   chat: {
     width: '70%',
-    padding: '30px 15px 0 45px',
+    padding: '30px 30px 0 45px',
     display: 'flex',
     flexDirection: 'column',
     flex: '1',
