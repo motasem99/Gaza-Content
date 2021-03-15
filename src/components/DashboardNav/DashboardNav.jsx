@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,37 +9,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-    paddingLeft: '0',
-    paddingRight: '0',
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-    justifyContent: 'flex-end',
-  },
-}));
+//Style
+import useStyles from './DashboardNavStyle.js';
 
 export default function PrimarySearchAppBar({ handleDrawerToggle }) {
   const classes = useStyles();
