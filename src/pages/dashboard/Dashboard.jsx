@@ -15,7 +15,6 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import {
-  makeStyles,
   createMuiTheme,
   ThemeProvider,
   useTheme,
@@ -24,56 +23,12 @@ import {
 // Language
 import DashboardLangObject from '../../Languages/Dashboard.js';
 // Components
-import DashbordNav from '../../components/DashboardNav/DashboardNav';
+import DashboardNav from '../../components/DashboardNav/DashboardNav';
 
-const drawerWidth = 240;
+// style
+import useStyles from './DashboardStyle.js';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: '#3f51b5',
-    color: 'white',
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  toolbarColor: {
-    backgroundColor: '#3f51b5',
-    height: '33px',
-  },
-  svgColor: {
-    color: 'white',
-  },
-  displayNav: {
-    justifyContent: 'flex-end',
-  },
-}));
-
-const Dashbord = (props) => {
+const Dashboard = (props) => {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -142,7 +97,7 @@ const Dashbord = (props) => {
             >
               <MenuIcon />
             </IconButton>
-            <DashbordNav className={classes.displayNav} />
+            <DashboardNav className={classes.displayNav} />
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label='mailbox folders'>
@@ -184,7 +139,7 @@ const Dashbord = (props) => {
   );
 };
 
-Dashbord.propTypes = {
+Dashboard.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -192,4 +147,4 @@ Dashbord.propTypes = {
   window: PropTypes.func,
 };
 
-export default Dashbord;
+export default Dashboard;
